@@ -120,7 +120,7 @@ int main() {
     SDL_Init(SDL_INIT_VIDEO);
     TTF_Init();
 
-    window = SDL_CreateWindow("Business Tycoon", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+    window = SDL_CreateWindow("OpenCapitalist - Business Tycoon", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
         SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
 
@@ -134,8 +134,10 @@ int main() {
     // Create some initial businesses
     Business business1("Tux's Pizza", 10, 1, 100);
     Business business2("Tux's Burger", 50, 5, 300);
+    Business business3("Tux's Car Wash", 500, 20, 1000);
     player.lockedBusinesses.push_back(business1);
     player.lockedBusinesses.push_back(business2);
+    player.lockedBusinesses.push_back(business3);
 
     Save save;
     save.load();
