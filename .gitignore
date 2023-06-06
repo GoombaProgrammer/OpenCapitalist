@@ -1,2 +1,4 @@
 opencapitalist
 .vscode/
+*.o
+save.bin

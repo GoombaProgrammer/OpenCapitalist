@@ -20,6 +20,9 @@
 #include <string>
 #include <iostream>
 
+#include "player.h"
+#include "save.h"
+
 using namespace std;
 
 const int SCREEN_WIDTH = 800;
@@ -29,28 +32,6 @@ const int SCREEN_HEIGHT = 600;
 SDL_Color BLACK = { 0, 0, 0, 255 };
 SDL_Color WHITE = { 255, 255, 255, 255 };
 
-class Business {
-public:
-    std::string name;
-    unsigned long long cost;
-    unsigned long long income;
-    int progress;
-    int progressDefault;
-
-    Business(const std::string& name, unsigned long long cost, unsigned long long income, int progress)
-        : name(name), cost(cost), income(income), progress(progress) {
-        progressDefault = progress;
-    }
-};
-
-class Player {
-public:
-    unsigned long long money;
-    std::vector<Business> businesses;
-    std::vector<Business> lockedBusinesses;
-
-    Player() : money(10) {}
-};
 
 SDL_Window* window = nullptr;
 SDL_Renderer* renderer = nullptr;
@@ -156,11 +137,15 @@ int main() {
     player.lockedBusinesses.push_back(business1);
     player.lockedBusinesses.push_back(business2);
 
+    Save save;
+    save.load();
+
     bool quit = false;
     SDL_Event e;
 
     SDL_AddTimer(10, [](Uint32 interval, void* param) -> Uint32 {
         updateProgress();
+        param = param; // This skips the unused parameter warning
         return interval;
     }, nullptr);
 
@@ -181,6 +166,8 @@ int main() {
         }
         render();
     }
+
+    save.save();
 
     TTF_CloseFont(font);
     SDL_DestroyRenderer(renderer);

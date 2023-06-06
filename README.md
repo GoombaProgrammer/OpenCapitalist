@@ -8,4 +8,4 @@ A simple business tycoon game
 
 ## How to build
 - Install SDL2 and SDL2_ttf
-- Run `g++ main.cpp -o opencapitalist -lSDL2 -lSDL2_ttf`
+- Run `make`
