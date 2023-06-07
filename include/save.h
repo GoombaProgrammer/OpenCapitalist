@@ -19,6 +19,8 @@ public:
             saveFile << business.cost << endl;
             saveFile << business.income << endl;
             saveFile << business.progressDefault << endl;
+            saveFile << business.level << endl;
+            saveFile << business.upgradeCost << endl;
         }
         saveFile << player.lockedBusinesses.size() << endl;
         for (Business& business : player.lockedBusinesses) {
@@ -26,6 +28,8 @@ public:
             saveFile << business.cost << endl;
             saveFile << business.income << endl;
             saveFile << business.progressDefault << endl;
+            saveFile << business.level << endl;
+            saveFile << business.upgradeCost << endl;
         }
         saveFile.close();
     }
@@ -54,7 +58,13 @@ public:
             unsigned long long income = stoull(line);
             getline(saveFile, line);
             int progress = stoi(line);
+            getline(saveFile, line);
+            int level = stoi(line);
+            getline(saveFile, line);
+            unsigned long long upgradeCost = stoull(line);
             Business business(name, cost, income, progress);
+            business.level = level;
+            business.upgradeCost = upgradeCost;
             player.businesses.push_back(business);
         }
         getline(saveFile, line);
@@ -68,7 +78,13 @@ public:
             unsigned long long income = stoull(line);
             getline(saveFile, line);
             int progress = stoi(line);
+            getline(saveFile, line);
+            int level = stoi(line);
+            getline(saveFile, line);
+            unsigned long long upgradeCost = stoull(line);
             Business business(name, cost, income, progress);
+            business.level = level;
+            business.upgradeCost = upgradeCost;
             player.lockedBusinesses.push_back(business);
         }
         saveFile.close();

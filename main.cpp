@@ -107,9 +107,9 @@ void render() {
     // Render owned businesses with progress bars
     yPos = 200;
     for (const auto& business : player.businesses) {
-        std::string businessText = business.name + " - Income: $" + std::to_string(business.income);
+        std::string businessText = business.name + " - Income: $" + std::to_string(business.income) + " - Upgrade Cost: $" + std::to_string(business.upgradeCost);
         renderText(businessText, 10, yPos, WHITE);
-        renderProgressBar(10, yPos + 20, 200, 10, business.progress, business.progressDefault);
+        renderProgressBar(10, yPos + 24, 200, 10, business.progress, business.progressDefault);
         yPos += 50;
     }
 
@@ -163,6 +163,19 @@ int main() {
                 if (y >= 50 && y <= 150) {
                     int index = (y - 50) / 30;
                     purchaseBusiness(index);
+                }
+                // Check if a unlocked business was clicked and upgrade it
+                else if (y >= 200) {
+                    int index = (y - 200) / 50;
+                    Business& business = player.businesses[index];
+                    if (player.money >= business.upgradeCost) {
+                        player.money -= business.upgradeCost;
+                        business.income *= 2;
+                        business.upgradeCost *= 3;
+                        business.level++;
+                        if ((business.level % 5) == 0)
+                            business.progressDefault /= 2;
+                    }
                 }
             }
         }
